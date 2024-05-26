@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projeto Extencionista</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="images/cropped_favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0"></script>
+</head>
+<body>
+    <div class="content-container">
+        <!-- Página Inicial -->
+        <div class="initial-page">
+            <div class="logo-container">
+                <img src="images/logo-memory-game.png" id="logo">
+                <h1 id="game-title">Projeto Extencionista - Jogo da Memória</h1>
+            </div>
+            <button id="start-game">Iniciar Jogo</button>
+        </div>
+        
+        <!-- Categorias do Jogo (escondido inicialmente) -->
+        <div class="game-categories">
+            <h2 id="title">Eu busco conhecimento sobre:</h2>
+            <div class="category-buttons">
+                <button id="anxiety">Ansiedade</button>
+                <button id="depression">Depressão</button>
+                <button id="stress">Estresse</button>
+            </div>
+        </div>
+        
+        <!-- Container do Jogo (escondido inicialmente) -->
+        <div class="game-container">
+            <header class="question-title">
+                <!-- <h1 id="question-title"></h1> -->
+            </header>
+            <section class="card-container">
+                <!-- As cartas serão adicionadas aqui dinamicamente -->
+            </section>
+            <div class="video-container">
+                <!-- Espaço para o vídeo -->
+            </div>
+        </div>
+
+        <div class="special-page">
+            <header>
+                <h1>Bem-vindo a Página Secreta</h1>
+                <p class="special-page-p">Você <strong>desbloqueou</strong> essa página juntando cada <strong>código   </strong> dado ao completar um desafio, nela, você terá acesso a todos vídeos que foram apresentados sem restrições, parabéns!</p>
+            </header>
+            <section>
+                <!-- Espaço para os vídeos -->
+            </section>
+        </div>
+    </div>
+    <div class="gradient-bg">
+        <div class="gradients-container">
+          <div class="g1"></div>
+          <div class="g2"></div>
+          <div class="g3"></div>
+          <div class="g4"></div>
+          <div class="g5"></div>
+          <div class="interactive"></div>
+        </div>
+      </div>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

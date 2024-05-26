@@ -1,0 +1,506 @@
+html, body {
+    font-family: 'sailec-bold', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content-container {
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.initial-page {
+    text-align: center;
+}
+
+.initial-page .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.initial-page #logo {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+}
+
+.initial-page #game-title {
+    font-size: 2em;
+    color: white;
+    margin-top: -50px; /* Ajusta a margem superior para aproximar do logo */
+}
+
+.initial-page #start-game {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #7ea7c4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.initial-page #start-game:hover {
+  background-color: #fff;
+  color: #7ea7c4
+}
+
+.game-categories, .game-container, .special-page {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.game-container, .special-page {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    position: relative;
+    height: 550px;
+}
+
+.video-container {
+  display: none; /* Initially hidden */
+  animation: fadeIn 1s forwards; /* Fade-in animation */
+  position: absolute; /* Position absolutely within game-container */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the container */
+  max-width: 100%;
+  max-height: 100%;
+  text-align: justify;
+}
+
+.video-container iframe {
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.video-container-special {
+  display: block;
+  animation: fadeIn 1s forwards; /* Fade-in animation */
+  max-width: 100%;
+  max-height: 100%;
+  text-align: justify;
+}
+
+.video-container-special iframe {
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.video-title h2 {
+  font-size: 24px;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.video-title p {
+  font-size: 16px;
+  margin: 0 0 20px;
+}
+
+.video-title h2, .video-title p {
+  color: #618096;
+}
+
+.special-page {
+  color: #7ea7c4;
+  text-align: justify;
+  overflow-y: scroll;
+}
+
+.special-page h1, .special-page h2 {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.special-page-p {
+  margin: 0 0 20px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.category-buttons button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #7ea7c4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.5s, color 0.5s, transform 0.3s ease-in-out;
+}
+
+.category-buttons button:hover {
+  background-color: #fff;
+  color: #7ea7c4;
+  transform: translateY(-5px);
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Isso criará 4 colunas iguais */
+    gap: 10px; /* Espaçamento entre as cartas */
+    padding: 10px; /* Espaço entre as cartas e a borda do contêiner */
+    margin-top: 20px; /* Espaço adicional acima das cartas */
+}
+
+.card {
+    height: 150px; /* Altura fixa para todas as cartas */
+    border-radius: 8px;
+    perspective: 1000px; /* Necessário para o efeito de flip 3D */
+    cursor: pointer;
+    user-select: none;
+    display: none;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.question-title {
+    display: none;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.card-front {
+  background: #ddd url('../images/cropped_logo.png') no-repeat center center;
+  background-size: 50%; /* Adjust the size of the logo here */
+  opacity: 0.8; /* Adjust the opacity here */
+  color: #333;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-front:hover {
+  transform: translateY(-3px);
+}
+
+.card-back {
+    background: #7ea7c4;
+    color: #fff;
+    transform: rotateY(180deg);
+}
+
+.card-text {
+  padding: 2px;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+@keyframes pop {
+  0% {
+      transform: scale(0);
+      opacity: 0;
+  }
+  50% {
+      transform: scale(1.2);
+      opacity: 1;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.shake {
+  animation: shake 0.5s;
+  animation-iteration-count: 4;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#title {
+    color: #f4f4f4;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#question-title {
+    color: #7ea7c4;
+    font-size: 1.5em;
+}
+
+:root {
+    --color-bg1: rgb(70, 130, 180); /* Steel Blue */
+    --color-bg2: rgb(123, 104, 238); /* Medium Slate Blue */
+    --color1: 135, 206, 250; /* Light Sky Blue */
+    --color2: 186, 85, 211; /* Medium Orchid */
+    --color3: 100, 149, 237; /* Cornflower Blue */
+    --color4: 250, 128, 114; /* Salmon */
+    --color5: 148, 0, 211; /* Dark Violet */
+    --color-interactive: 60, 179, 113; /* Medium Sea Green */
+    --circle-size: 60%;
+    --blending: soft-light; /* Softer blending mode */
+}
+
+  @keyframes moveInCircle {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes moveVertical {
+    0% {
+      transform: translateY(-50%);
+    }
+    50% {
+      transform: translateY(50%);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+  
+  @keyframes moveHorizontal {
+    0% {
+      transform: translateX(-50%) translateY(-10%);
+    }
+    50% {
+      transform: translateX(50%) translateY(10%);
+    }
+    100% {
+      transform: translateX(-50%) translateY(-10%);
+    }
+  }
+  
+  
+  .gradient-bg {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(40deg, var(--color-bg1), var(--color-bg2));
+    top: 0;
+    left: 0;
+  
+    svg {
+      display: none;
+    }
+  
+  
+    .gradients-container {
+      filter: url(#goo) blur(40px) ;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .g1 {
+      position: absolute;
+      background: radial-gradient(circle at center, rgba(var(--color1), 0.8) 0, rgba(var(--color1), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+  
+      width: var(--circle-size);
+      height: var(--circle-size);
+      top: calc(50% - var(--circle-size) / 2);
+      left: calc(50% - var(--circle-size) / 2);
+  
+      transform-origin: center center;
+      animation: moveVertical 30s ease infinite;
+  
+      opacity: 1;
+    }
+  
+    .g2 {
+      position: absolute;
+      background: radial-gradient(circle at center, rgba(var(--color2), 0.8) 0, rgba(var(--color2), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+  
+      width: var(--circle-size);
+      height: var(--circle-size);
+      top: calc(50% - var(--circle-size) / 2);
+      left: calc(50% - var(--circle-size) / 2);
+  
+      transform-origin: calc(50% - 400px);
+      animation: moveInCircle 20s reverse infinite;
+  
+      opacity: 1;
+    }
+  
+    .g3 {
+      position: absolute;
+      background: radial-gradient(circle at center, rgba(var(--color3), 0.8) 0, rgba(var(--color3), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+  
+      width: var(--circle-size);
+      height: var(--circle-size);
+      top: calc(50% - var(--circle-size) / 2 + 200px);
+      left: calc(50% - var(--circle-size) / 2 - 500px);
+  
+      transform-origin: calc(50% + 400px);
+      animation: moveInCircle 40s linear infinite;
+  
+      opacity: 1;
+    }
+  
+    .g4 {
+      position: absolute;
+      background: radial-gradient(circle at center, rgba(var(--color4), 0.8) 0, rgba(var(--color4), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+  
+      width: var(--circle-size);
+      height: var(--circle-size);
+      top: calc(50% - var(--circle-size) / 2);
+      left: calc(50% - var(--circle-size) / 2);
+  
+      transform-origin: calc(50% - 200px);
+      animation: moveHorizontal 40s ease infinite;
+  
+      opacity: 0.7;
+    }
+  
+    .g5 {
+      position: absolute;
+      background: radial-gradient(circle at center, rgba(var(--color5), 0.8) 0, rgba(var(--color5), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+  
+      width: calc(var(--circle-size) * 2);
+      height: calc(var(--circle-size) * 2);
+      top: calc(50% - var(--circle-size));
+      left: calc(50% - var(--circle-size));
+  
+      transform-origin: calc(50% - 800px) calc(50% + 200px);
+      animation: moveInCircle 20s ease infinite;
+  
+      opacity: 1;
+    }
+  
+    .interactive {
+      position: absolute;
+      background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+  
+      width: 100%;
+      height: 100%;
+      top: -50%;
+      left: -50%;
+  
+      opacity: 0.7;
+    }
+  }
+
+@media screen and (max-width: 600px) {
+    .game-categories, .game-container, .video-container {
+        width: 100%;
+        padding: 0;
+    }
+
+    .game-container, .video-container {
+        height: auto;
+        overflow: auto;
+        margin: 0;
+    }
+
+    .game-container {
+        padding-bottom: 20px;
+    }
+
+    .video-container video {
+        width: 100%;
+        height: auto;
+    }
+
+    .category-buttons {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .category-buttons button {
+        margin: 5px;
+    }
+
+    .content-container {
+        padding: 10px;
+    }
+
+    /* Assuming .card-container contains the cards */
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin-top: 0;
+    }
+
+    #title {
+        font-size: 18px;
+    }
+
+    #question-title {
+        font-size: 22px;
+    }
+}
